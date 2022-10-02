@@ -13,20 +13,22 @@ export function CovidApi() {
         "https://data.covid19india.org/data.json"
       );
       setData(response.data.statewise);
-      setfilteredData([data, ...response.data.statewise]);
+      // setfilteredData([data, ...response.data.statewise]);
     }
     getData();
   }, []);
 
-  useEffect(() => {
+  let handleSearch = ()=>{
     let searched = data.filter((ser) => {
+      console.log(search,ser.state)
       if (ser.state) {
-        return ser.state.includes(search.toLocaleLowerCase());
+        return ser.state.includes(search);
       }
     });
     setfilteredData(searched);
-  }, [search]);
+  }
 
+ 
   return (
     <>
      
@@ -80,6 +82,8 @@ export function CovidApi() {
       </div>
       <div className="card">
         <h2>Search the State to Get Live Data</h2>
+        
+        <p className="blur">The search field is case sensitive. Any name of state must be started in Upper Case</p>
         <input
         className="input_field"
         placeholder="Enter the name of State"
@@ -88,9 +92,13 @@ export function CovidApi() {
           onChange={(e) => {
             setSearch(e.target.value);
           }}
+         
         />
+         <button className="Search_button" onClick={(e)=>{
+          handleSearch()
+         }}>Search Button</button>
         {filtered.map((filter) => (
-          <p className="para1">{filter.state} Active Cases=> {filter.active} citizens</p>
+            <p className="para1">In {filter.state} Total Active Cases  are  => {filter.active} People</p>
         ))}
       </div>
     </>
