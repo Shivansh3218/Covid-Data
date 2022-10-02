@@ -79,6 +79,7 @@ export function CovidApi() {
         </div>
       </div>
       <div className="card">
+        <h2>Search the State to Get Live Data</h2>
         <input
         className="input_field"
         placeholder="Enter the name of State"
